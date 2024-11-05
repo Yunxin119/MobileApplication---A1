@@ -2,6 +2,7 @@ package com.example.numad24fa_yunxinliu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     Button contacts_collector;
+    Button aboutMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +28,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Button aboutMe = findViewById(R.id.about_me_button);
-        aboutMe.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
-            startActivity(intent);
+        aboutMe = findViewById(R.id.about_me_button);
+        aboutMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AboutMeActivity.class);
+                startActivity(intent);
+            }
         });
 
         contacts_collector = findViewById(R.id.contacts_collector);
-        contacts_collector.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this, ContactsCollectActivity.class);
-            startActivity(intent);
+        contacts_collector.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ContactsCollectActivity.class);
+                startActivity(intent);
+            }
         });
-
 
     }
 }
