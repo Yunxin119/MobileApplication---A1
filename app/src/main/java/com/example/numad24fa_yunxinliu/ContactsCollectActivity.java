@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class ContactsCollectActivity extends AppCompatActivity {
     FloatingActionButton add_contact;
     RecyclerView recyclerView;
     ArrayList<Contact> contacts = new ArrayList<Contact>();
-    ContactAdapter adapter = new ContactAdapter(contacts);
+    ContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,9 @@ public class ContactsCollectActivity extends AppCompatActivity {
 
         add_contact = findViewById(R.id.add_contact);
         recyclerView = findViewById(R.id.recyclerView);
-
+        adapter = new ContactAdapter(this, contacts);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         add_contact.setOnClickListener(view -> {
             showAddContactDialog();
         });
@@ -62,10 +66,11 @@ public class ContactsCollectActivity extends AppCompatActivity {
                 if (!name.isEmpty() && !phone.isEmpty()) {
                     Contact newContact = new Contact(name, phone);
                     contacts.add(newContact);
-                    Toast.makeText(ContactsCollectActivity.this, "Successfully added contact info", Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+                    Snackbar.make(recyclerView, "Successfully added contact info", Snackbar.LENGTH_SHORT).show();
                     dialog.dismiss();
                 } else {
-                    Toast.makeText(ContactsCollectActivity.this, "Please fill all the required fields", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(recyclerView, "Please fill all the required fields", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
