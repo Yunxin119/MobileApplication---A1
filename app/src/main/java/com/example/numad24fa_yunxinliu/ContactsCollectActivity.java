@@ -49,7 +49,7 @@ public class ContactsCollectActivity extends AppCompatActivity {
 
     private void showAddContactDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.add_contact_popup); // 设置自定义布局
+        dialog.setContentView(R.layout.add_contact_popup);
         dialog.setTitle("Add Contact");
 
         EditText nameInput = dialog.findViewById(R.id.contactNameInput);
