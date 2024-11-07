@@ -39,6 +39,8 @@ public class ContactsCollectActivity extends AppCompatActivity {
             contacts = (ArrayList<Contact>) savedInstanceState.getSerializable("contacts");
         } else {
             contacts = new ArrayList<>();
+            Contact contact1 = new Contact("Yunxin Liu", "1234567890");
+            contacts.add(contact1);
         }
 
         adapter = new ContactAdapter(this, contacts);
