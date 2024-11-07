@@ -34,12 +34,20 @@ public class ContactsCollectActivity extends AppCompatActivity {
 
         add_contact = findViewById(R.id.add_contact);
         recyclerView = findViewById(R.id.recyclerView);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey("contacts")) {
+            contacts = (ArrayList<Contact>) savedInstanceState.getSerializable("contacts");
+        } else {
+            contacts = new ArrayList<>();
+        }
+
         adapter = new ContactAdapter(this, contacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         add_contact.setOnClickListener(view -> {
             showAddContactDialog();
         });
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.contacts_collector), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -83,5 +91,11 @@ public class ContactsCollectActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("contacts", contacts);
     }
 }
